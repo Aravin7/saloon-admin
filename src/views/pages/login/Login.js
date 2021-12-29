@@ -25,6 +25,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
+  // const [message, setMessage] = useState("");
+
   const authenticateUser = () => {
     const data = { username: username, password: password };
     fetch("http://localhost:4000/users/authenticate", {
@@ -45,7 +47,15 @@ const Login = () => {
           localStorage.setItem("role", data.role);
           dispatch({ type: "auth", authData: data });
           //Redirect to dashborad
-          history.push("/dashboard");
+          if (role === "admin" || role === "emp") history.push("/dashboard");
+          // alert popup when try to log in the non-user of the system
+          // setMessage(
+          //   "You haven't had any credentials to have log into the System"
+          // );
+          else
+            alert(
+              "You haven't had any credentials to have log into the System"
+            );
         } else {
           //alert popup when username or password is wrong.
           alert(data);
@@ -63,6 +73,10 @@ const Login = () => {
           <CCol md="8">
             <CCardGroup>
               <CCard className="p-4">
+                {/* 
+                Error message
+                <h1>{message}</h1> 
+                */}
                 <CCardBody>
                   <CForm>
                     <h1>Login</h1>
@@ -112,7 +126,7 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard
+              {/* <CCard
                 className="text-white bg-primary py-5 d-md-down-none"
                 style={{ width: "44%" }}
               >
@@ -136,7 +150,7 @@ const Login = () => {
                     </Link>
                   </div>
                 </CCardBody>
-              </CCard>
+              </CCard> */}
             </CCardGroup>
           </CCol>
         </CRow>
