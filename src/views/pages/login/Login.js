@@ -12,6 +12,7 @@ import {
   CInputGroup,
   CInputGroupPrepend,
   CInputGroupText,
+  CAlert,
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
@@ -21,14 +22,24 @@ import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  //const [showAlert, setShowAlert] = useState(false);
 
-  // const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const authenticateUser = () => {
-    const data = { username: username, password: password };
+    const data = { email: email, password: password };
+    console.log("typeof(data)", typeof data);
+    console.log("typeof(email)", email);
+
+    /*  if (email === "" || password === "" || (email === "" && password === "")) {
+      setMessage(
+        "You have forgotton to enter the credentials,Please fill it and try again !"
+      );
+    } */
+
     fetch("http://localhost:4000/users/authenticate", {
       method: "POST",
       headers: {
@@ -42,28 +53,34 @@ const Login = () => {
         if (isObject(data)) {
           let role = String(data.role);
           console.log("role", role);
+          console.log("data", data);
+
+          //Set localStorage variables
           localStorage.setItem("isLoggedIn", true);
           localStorage.setItem("authToken", data.token);
           localStorage.setItem("role", data.role);
           dispatch({ type: "auth", authData: data });
+
           //Redirect to dashborad
           if (role === "admin" || role === "emp") history.push("/dashboard");
           // alert popup when try to log in the non-user of the system
-          // setMessage(
-          //   "You haven't had any credentials to have log into the System"
-          // );
           else
-            alert(
+            setMessage(
               "You haven't had any credentials to have log into the System"
             );
         } else {
           //alert popup when username or password is wrong.
-          alert(data);
+          // alert(data);
+          setMessage(data);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+    //  }  else {
+    //   setMessage(
+    //     "You have forgotton to enter the credentials,Please fill it and try again !"
+    //   );
   };
 
   return (
@@ -73,11 +90,13 @@ const Login = () => {
           <CCol md="8">
             <CCardGroup>
               <CCard className="p-4">
-                {/* 
-                Error message
-                <h1>{message}</h1> 
-                */}
-                <CCardBody>
+                {/* Error message */}
+                <CAlert>
+                  <small>{message}</small>
+                </CAlert>
+                {/*  <h1 className="msg-error">{message}</h1> */}
+
+                <CCardBody className="login-card">
                   <CForm>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
@@ -90,7 +109,7 @@ const Login = () => {
                       <CInput
                         type="text"
                         placeholder="Username"
-                        onChange={(e) => setUserName(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         autoComplete="username"
                       />
                     </CInputGroup>
@@ -126,7 +145,7 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
-              {/* <CCard
+              <CCard
                 className="text-white bg-primary py-5 d-md-down-none"
                 style={{ width: "44%" }}
               >
@@ -150,7 +169,7 @@ const Login = () => {
                     </Link>
                   </div>
                 </CCardBody>
-              </CCard> */}
+              </CCard>
             </CCardGroup>
           </CCol>
         </CRow>
