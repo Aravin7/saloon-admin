@@ -120,8 +120,8 @@ const routes = [
   { path: "/users/:id", exact: true, name: "User Details", component: User },
 ];
 
-const nonLoggedRoutes = [
+/* const nonLoggedRoutes = [
   { path: "/login", exact: true, name: "login", component: User },
-];
+]; */
 
 export default routes;

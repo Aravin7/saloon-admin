@@ -89,6 +89,7 @@ const TheHeaderDropdown = () => {
           onClick={() => {
             localStorage.setItem("isLoggedIn", null);
             localStorage.setItem("authToken", null);
+            localStorage.setItem("role", null);
             dispatch({ type: "auth", authData: {} });
             history.push("/login");
           }}
