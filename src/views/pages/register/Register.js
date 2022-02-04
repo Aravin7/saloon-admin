@@ -15,6 +15,7 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { useHistory } from "react-router";
+import { isEmpty } from "lodash";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -25,30 +26,37 @@ const Register = () => {
   const history = useHistory();
 
   const createAccount = () => {
-    const token = localStorage.getItem("authToken");
-    //Try to register the user
-    //if successfully register the user,redirect to the login page
-    //else show the relevent error msg
-    const data = { username, password, email };
+    /* Chk whether method works or not */
+    //console.log("method clicked");
+    //const token = localStorage.getItem("authToken");
 
-    fetch("http://localhost:4000/users/", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setResponseData(data);
-        setShowAlert(true);
-        setUsername("");
-        setPassword("");
+    /* Try to register the user
+    if successfully register the user,redirect to the login page
+    else show the relevent error msg */
+    const data = { username: username, password: password, email: email };
+    console.log(isEmpty(data, true));
+
+    if (isEmpty(data)) {
+      fetch("http://localhost:4000/users/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          setResponseData(data);
+          setShowAlert(true);
+          setUsername("");
+          setPassword("");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      alert("please fill the form");
+    }
   };
 
   return (
@@ -84,7 +92,7 @@ const Register = () => {
                       type="text"
                       onChange={(e) => setUsername(e.target.value)}
                       placeholder="Username"
-                      autoComplete="username"
+                      //autoComplete="username"
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
@@ -94,7 +102,7 @@ const Register = () => {
                     <CInput
                       type="text"
                       placeholder="Email"
-                      autoComplete="email"
+                      //autoComplete="current-email"
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </CInputGroup>
@@ -108,7 +116,7 @@ const Register = () => {
                       type="password"
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Password"
-                      autoComplete="new-password"
+                      //autoComplete="password"
                     />
                   </CInputGroup>
                   {/* <CInputGroup className="mb-4">
@@ -123,11 +131,7 @@ const Register = () => {
                       autoComplete="new-password"
                     />
                   </CInputGroup> */}
-                  <CButton
-                    onClick={() => createAccount()}
-                    color="success"
-                    block
-                  >
+                  <CButton onClick={createAccount} color="success" block>
                     Create Account
                   </CButton>
                 </CForm>
