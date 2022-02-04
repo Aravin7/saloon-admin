@@ -108,9 +108,9 @@ const Login = () => {
                       </CInputGroupPrepend>
                       <CInput
                         type="text"
-                        placeholder="Username"
+                        placeholder="Email"
                         onChange={(e) => setEmail(e.target.value)}
-                        autoComplete="username"
+                        autoComplete="current-email"
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
