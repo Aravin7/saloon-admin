@@ -62,7 +62,14 @@ const Login = () => {
           dispatch({ type: "auth", authData: data });
 
           //Redirect to dashborad
-          if (role === "admin" || role === "emp") history.push("/dashboard");
+          if (role === "admin" || role === "emp") {
+            if (role === "admin") {
+              localStorage.setItem("name", data.admin_name);
+            } else {
+              localStorage.setItem("name", data.emp_name);
+            }
+            history.push("/dashboard");
+          }
           // alert popup when try to log in the non-user of the system
           else
             setMessage(

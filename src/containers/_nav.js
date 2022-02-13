@@ -16,11 +16,54 @@ export const admin_nav = [
     _tag: "CSidebarNavTitle",
     _children: ["Theme"],
   },
+
   {
     _tag: "CSidebarNavItem",
-    name: "Colors",
-    to: "/theme/colors",
-    icon: "cil-drop",
+    name: "Customer Details",
+    to: "/customer",
+    icon: "cil-settings",
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Employee Details",
+    to: "/employee",
+    icon: "cil-settings",
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Bookings",
+    to: "/bookings",
+    icon: "cil-settings",
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Payments",
+    to: "/payments",
+    icon: "cil-settings",
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Blog",
+    to: "/blogs",
+    icon: "cil-settings",
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Store",
+    to: "/store",
+    icon: "cil-settings",
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Inventory",
+    to: "/inventory",
+    icon: "cil-settings",
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Report management",
+    to: "/reports",
+    icon: "cil-settings",
   },
   // {
   //   _tag: 'CSidebarNavItem',

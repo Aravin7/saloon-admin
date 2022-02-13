@@ -60,6 +60,26 @@ const Widgets = React.lazy(() => import("./views/widgets/Widgets"));
 const Users = React.lazy(() => import("./views/users/Users"));
 const User = React.lazy(() => import("./views/users/User"));
 
+//admin components
+const Blog = React.lazy(() => import("./views/blog/blog"));
+const AddBlog = React.lazy(() => import("./views/blog/addBlog"));
+
+const Store = React.lazy(() => import("./views/store/store"));
+const AddStoreItem = React.lazy(() => import("./views/store/addItem"));
+
+const Inventory = React.lazy(() => import("./views/inventory/inventory"));
+const AddInventoryItem = React.lazy(() => import("./views/inventory/addItem"));
+
+const CustomerDetails = React.lazy(() => import("./views/customer/customer"));
+const AddCustomer = React.lazy(() => import("./views/customer/addCustomer"));
+
+const EmployeeDetails = React.lazy(() => import("./views/employee/employee"));
+const AddEmployee = React.lazy(() => import("./views/employee/addEmployee"));
+
+const Reports = React.lazy(() => import("./views/reports/reports"));
+const Bookings = React.lazy(() => import("./views/bookings/bookings"));
+const Payments = React.lazy(() => import("./views/payments/payments"));
+
 const routes = [
   { path: "/", exact: true, name: "Home", component: Dashboard },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
@@ -118,6 +138,64 @@ const routes = [
   { path: "/widgets", name: "Widgets", component: Widgets },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
+  { path: "/blogs", exact: true, name: "Blog", component: Blog },
+  { path: "/blogs/add", exact: true, name: "Add Blog", component: AddBlog },
+  { path: "/store", exact: true, name: "Store", component: Store },
+  {
+    path: "/store/add",
+    exact: true,
+    name: "Add Item",
+    component: AddStoreItem,
+  },
+  { path: "/inventory", exact: true, name: "Inventory", component: Inventory },
+  {
+    path: "/inventory/add",
+    exact: true,
+    name: "Add Item",
+    component: AddInventoryItem,
+  },
+  {
+    path: "/customer",
+    exact: true,
+    name: "Customer Details",
+    component: CustomerDetails,
+  },
+  {
+    path: "/customer/add",
+    exact: true,
+    name: "Add Customer",
+    component: AddCustomer,
+  },
+  {
+    path: "/employee",
+    exact: true,
+    name: "Employee Details",
+    component: EmployeeDetails,
+  },
+  {
+    path: "/employee/add",
+    exact: true,
+    name: "Add Employee",
+    component: AddEmployee,
+  },
+  {
+    path: "/reports",
+    exact: true,
+    name: "Reports",
+    component: Reports,
+  },
+  {
+    path: "/bookings",
+    exact: true,
+    name: "Bookings",
+    component: Bookings,
+  },
+  {
+    path: "/payments",
+    exact: true,
+    name: "Payments",
+    component: Payments,
+  },
 ];
 
 /* const nonLoggedRoutes = [
