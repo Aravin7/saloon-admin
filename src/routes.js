@@ -61,27 +61,30 @@ const Users = React.lazy(() => import("./views/users/Users"));
 const User = React.lazy(() => import("./views/users/User"));
 
 //admin components
-const Blog = React.lazy(() => import("./views/blog/blog"));
-const AddBlog = React.lazy(() => import("./views/blog/addBlog"));
+const Login = React.lazy(() => import("./views/pages/login/Login"));
 
-const Store = React.lazy(() => import("./views/store/store"));
-const AddStoreItem = React.lazy(() => import("./views/store/addItem"));
+const Blog = React.lazy(() => import("./views/blog/Blog"));
+const AddBlog = React.lazy(() => import("./views/blog/AddBlog"));
 
-const Inventory = React.lazy(() => import("./views/inventory/inventory"));
-const AddInventoryItem = React.lazy(() => import("./views/inventory/addItem"));
+const Store = React.lazy(() => import("./views/store/Store"));
+const AddStoreItem = React.lazy(() => import("./views/store/AddItem"));
 
-const CustomerDetails = React.lazy(() => import("./views/customer/customer"));
-const AddCustomer = React.lazy(() => import("./views/customer/addCustomer"));
+const Inventory = React.lazy(() => import("./views/inventory/Inventory"));
+const AddInventoryItem = React.lazy(() => import("./views/inventory/AddItem"));
 
-const EmployeeDetails = React.lazy(() => import("./views/employee/employee"));
-const AddEmployee = React.lazy(() => import("./views/employee/addEmployee"));
+const CustomerDetails = React.lazy(() => import("./views/customer/Customer"));
+const AddCustomer = React.lazy(() => import("./views/customer/AddCustomer"));
 
-const Reports = React.lazy(() => import("./views/reports/reports"));
-const Bookings = React.lazy(() => import("./views/bookings/bookings"));
-const Payments = React.lazy(() => import("./views/payments/payments"));
+const EmployeeDetails = React.lazy(() => import("./views/employee/Employee"));
+const AddEmployee = React.lazy(() => import("./views/employee/AddEmployee"));
+
+const Reports = React.lazy(() => import("./views/reports/Reports"));
+const Bookings = React.lazy(() => import("./views/bookings/Bookings"));
+const Payments = React.lazy(() => import("./views/payments/Payments"));
 
 const routes = [
   { path: "/", exact: true, name: "Home", component: Dashboard },
+  { path: "/login", name: "Login", component: Login },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/theme", name: "Theme", component: Colors, exact: true },
   { path: "/theme/colors", name: "Colors", component: Colors },
