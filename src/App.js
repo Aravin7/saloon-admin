@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
 
@@ -52,6 +53,7 @@ const App = () => {
             render={(props) => <TheLayout {...props} />}
           />
         </Switch>
+        <Redirect from="/" to="/login" />
       </React.Suspense>
     </HashRouter>
   );
