@@ -32,7 +32,7 @@ const Register = () => {
 
     /* Try to register the user
     if successfully register the user,redirect to the login page
-    else show the relevent error msg */
+    else show the relevant error msg */
     const data = { username: username, password: password, email: email };
     console.log(isEmpty(data, true));
 

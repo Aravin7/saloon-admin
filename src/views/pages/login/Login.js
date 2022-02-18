@@ -36,7 +36,7 @@ const Login = () => {
 
     /*  if (email === "" || password === "" || (email === "" && password === "")) {
       setMessage(
-        "You have forgotton to enter the credentials,Please fill it and try again !"
+        "You have forgot to enter the credentials,Please fill it and try again !"
       );
     } */
 
@@ -61,7 +61,7 @@ const Login = () => {
           localStorage.setItem("role", data.role);
           dispatch({ type: "auth", authData: data });
 
-          //Redirect to dashborad
+          //Redirect to dashboard
           if (role === "admin" || role === "emp") {
             if (role === "admin") {
               localStorage.setItem("name", data.admin_name);
@@ -86,7 +86,7 @@ const Login = () => {
       });
     //  }  else {
     //   setMessage(
-    //     "You have forgotton to enter the credentials,Please fill it and try again !"
+    //     "You have forgot to enter the credentials,Please fill it and try again !"
     //   );
   };
 
@@ -119,6 +119,9 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         autoComplete="current-email"
                       />
+                      {/*   <CFormText className="help-block">
+                        Please enter your email
+                      </CFormText> */}
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
@@ -132,6 +135,9 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         autoComplete="current-password"
                       />
+                      {/*  <CFormText className="help-block">
+                        Please enter your password
+                      </CFormText> */}
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
