@@ -12,16 +12,32 @@ import {
 } from "@coreui/react";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const history = useHistory();
 
-  const submitBlogs = (e) => {
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      content: "",
+    },
+    onSubmit: (userInputData) => {
+      submitBlogs(userInputData);
+    },
+    validationSchema: yup.object({
+      title: yup.string().required("title is required").strict().trim(),
+      content: yup.string().required("content is required").strict().trim(),
+    }),
+  });
+
+  const submitBlogs = (userInputData) => {
     const token = localStorage.getItem("authToken");
     //console.log(token);
-    const data = { title: title, content: content };
+    const data = userInputData;
     //console.log("title is empty", title === "");
 
     fetch("http://localhost:4000/blogs", {
@@ -50,15 +66,14 @@ const AddBlog = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-    e.preventDefault();
+    // e.preventDefault();
   };
 
-  const resetField = () => {
+  /* const resetField = () => {
     setTitle("");
     setContent("");
-  };
+  }; */
 
-  //const history = useHistory();
   return (
     <div>
       <CRow>
@@ -68,37 +83,39 @@ const AddBlog = () => {
       </CRow>
       <CRow>
         <CCol xs="12" md="10">
-          <CForm>
+          <CForm onSubmit={formik.handleSubmit}>
             <CFormGroup>
-              <CLabel htmlFor="title-input">Title</CLabel>
+              <CLabel htmlFor="title">Title</CLabel>
               <CInput
                 type="text"
-                id="title-input"
-                name="title-input"
+                id="title"
+                name="title"
                 placeholder="Enter title.."
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={formik.values.title}
+                onChange={formik.handleChange}
               />
               <CFormText className="help-block">Please enter title</CFormText>
             </CFormGroup>
             <CFormGroup>
-              <CLabel htmlFor="content-input">Content</CLabel>
+              <CLabel htmlFor="content">Content</CLabel>
               <CTextarea
-                name="content-input"
-                id="content-input"
+                name="content"
+                id="content"
                 rows="9"
                 placeholder="Content..."
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
+                value={formik.values.content}
+                onChange={formik.handleChange}
               />
+              <CFormText className="help-block">Please enter content</CFormText>
             </CFormGroup>
             <CButton
               type="button"
               size="sm"
               color="primary"
-              onClick={(e) => {
+              /*  onClick={(e) => {
                 submitBlogs(e);
-              }}
+              }} */
+              onClick={formik.handleSubmit}
             >
               <CIcon name="cil-scrubber" /> Submit
             </CButton>{" "}
@@ -107,9 +124,7 @@ const AddBlog = () => {
               size="sm"
               color="danger"
               value="Reset"
-              onClick={(e) => {
-                resetField(e);
-              }}
+              onClick={formik.handleReset}
             >
               <CIcon name="cil-ban" /> Reset
             </CButton>
