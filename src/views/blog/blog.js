@@ -52,6 +52,11 @@ const Blog = () => {
         return "primary";
     }
   };
+
+  /*  const edit = (arrivedId) => {
+    alert(arrivedId);
+  }; */
+
   return (
     <div>
       <h1>Blog lists</h1>
@@ -96,7 +101,11 @@ const Blog = () => {
                 <CCardBody>
                   <h4>{item.username}</h4>
                   <p className="text-muted">User since: {item.registered}</p>
-                  <CButton size="sm" color="info">
+                  <CButton
+                    size="sm"
+                    color="info"
+                    onClick={() => history.push(`/blogs/edit/${item.id}`)}
+                  >
                     User Settings
                   </CButton>
                   <CButton size="sm" color="danger" className="ml-1">
