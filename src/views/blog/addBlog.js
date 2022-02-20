@@ -26,7 +26,8 @@ const AddBlog = () => {
       content: "",
     },
     onSubmit: (userInputData) => {
-      submitBlogs(userInputData);
+      //submitBlogs(userInputData);
+      console.log(userInputData);
     },
     validationSchema: yup.object({
       title: yup.string().required("title is required").strict().trim(),
@@ -34,6 +35,7 @@ const AddBlog = () => {
     }),
   });
 
+  /* 
   const submitBlogs = (userInputData) => {
     const token = localStorage.getItem("authToken");
     //console.log(token);
@@ -67,7 +69,7 @@ const AddBlog = () => {
         console.error("Error:", error);
       });
     // e.preventDefault();
-  };
+  }; */
 
   /* const resetField = () => {
     setTitle("");
@@ -94,7 +96,12 @@ const AddBlog = () => {
                 value={formik.values.title}
                 onChange={formik.handleChange}
               />
-              <CFormText className="help-block">Please enter title</CFormText>
+              {/* error message */}
+              {formik.errors.title ? (
+                <CFormText className="help-block">
+                  {formik.errors.title}
+                </CFormText>
+              ) : null}
             </CFormGroup>
             <CFormGroup>
               <CLabel htmlFor="content">Content</CLabel>
@@ -106,7 +113,12 @@ const AddBlog = () => {
                 value={formik.values.content}
                 onChange={formik.handleChange}
               />
-              <CFormText className="help-block">Please enter content</CFormText>
+              {/* error message */}
+              {formik.errors.content ? (
+                <CFormText className="help-block">
+                  {formik.errors.content}
+                </CFormText>
+              ) : null}
             </CFormGroup>
             <CButton
               type="button"
