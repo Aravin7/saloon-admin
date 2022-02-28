@@ -38,8 +38,9 @@ const EditBlog = (props) => {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    console.log(token, "token");
-    fetch("http://localhost:4000/blogs/edit?id=" + id, {
+    //console.log(token, "token");
+    console.log("EditBlog");
+    fetch("http://localhost:4000/blogs/blog?id=" + id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -48,12 +49,12 @@ const EditBlog = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("data from editBlog", data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  }, [id]);
 
   /* 
   const submitBlogs = (userInputData) => {

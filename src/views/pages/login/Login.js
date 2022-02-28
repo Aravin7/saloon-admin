@@ -31,8 +31,8 @@ const Login = () => {
 
   const authenticateUser = () => {
     const data = { email: email, password: password };
-    console.log("typeof(data)", typeof data);
-    console.log("typeof(email)", email);
+    /* console.log("typeof(data)", typeof data);
+    console.log("typeof(email)", email); */
 
     /*  if (email === "" || password === "" || (email === "" && password === "")) {
       setMessage(
@@ -49,11 +49,11 @@ const Login = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data.token);
+        //console.log("Success:", data.token);
         if (isObject(data)) {
           let role = String(data.role);
-          console.log("role", role);
-          console.log("data", data);
+          //console.log("role", role);
+          //console.log("data", data);
 
           //Set localStorage variables
           localStorage.setItem("isLoggedIn", true);
