@@ -25,10 +25,8 @@ const Blog = () => {
   };
 
   const fields = [
-    { key: "name", _style: { width: "40%" } },
-    "registered",
-    { key: "role", _style: { width: "20%" } },
-    { key: "status", _style: { width: "20%" } },
+    { key: "title", _style: { width: "18%" } },
+    { key: "content", _style: { width: "40%" } },
     {
       key: "show_details",
       label: "",
@@ -62,11 +60,11 @@ const Blog = () => {
       <h1>Blog lists</h1>
       <button onClick={() => history.push("/blogs/add")}>Add</button>
       <CDataTable
-        items={usersData}
+        items={blogData}
         fields={fields}
-        columnFilter
+        /* columnFilter
         tableFilter
-        footer
+        footer */
         itemsPerPageSelect
         itemsPerPage={5}
         hover
@@ -90,7 +88,7 @@ const Blog = () => {
                     toggleDetails(index);
                   }}
                 >
-                  {details.includes(index) ? "Hide" : "Show"}
+                  {details.includes(index) ? "Hide" : "Actions"}
                 </CButton>
               </td>
             );
@@ -99,14 +97,14 @@ const Blog = () => {
             return (
               <CCollapse show={details.includes(index)}>
                 <CCardBody>
-                  <h4>{item.username}</h4>
-                  <p className="text-muted">User since: {item.registered}</p>
+                  {/*                 <h4>{item.username}</h4>
+                  <p className="text-muted">User since: {item.registered}</p> */}
                   <CButton
                     size="sm"
                     color="info"
-                    onClick={() => history.push(`/blogs/edit/${item.id}`)}
+                    onClick={() => history.push(`/blogs/edit/${item.id + 1}`)}
                   >
-                    User Settings
+                    Edit Blog
                   </CButton>
                   <CButton size="sm" color="danger" className="ml-1">
                     Delete
@@ -122,6 +120,51 @@ const Blog = () => {
 };
 
 export default Blog;
+
+const blogData = [
+  {
+    id: 0,
+    title: "test title 00",
+    content:
+      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
+  },
+  {
+    id: 1,
+    title: "test title 01",
+    content:
+      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
+  },
+  {
+    id: 2,
+    title: "test title 02",
+    content:
+      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
+  },
+  {
+    id: 3,
+    title: "test title 03",
+    content:
+      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
+  },
+  {
+    id: 4,
+    title: "test title 04",
+    content:
+      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
+  },
+  {
+    id: 5,
+    title: "test title 05",
+    content:
+      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
+  },
+  {
+    id: 6,
+    title: "test title 06",
+    content:
+      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
+  },
+];
 
 const usersData = [
   {
