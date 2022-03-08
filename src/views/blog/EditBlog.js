@@ -11,7 +11,7 @@ import {
   CTextarea,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -19,6 +19,7 @@ const EditBlog = (props) => {
   const { id } = props.match.params;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
   const history = useHistory();
 
   const formik = useFormik({
@@ -26,21 +27,25 @@ const EditBlog = (props) => {
       title: "",
       content: "",
     },
+    enableReinitialize: true,
     onSubmit: (userInputData) => {
-      //submitBlogs(userInputData);
-      console.log(userInputData);
+      updateBlog(userInputData);
+      /*    console.log(userInputData);
+      console.log("userInputData"); */
     },
     validationSchema: yup.object({
       title: yup.string().required("title is required").strict().trim(),
       content: yup.string().required("content is required").strict().trim(),
     }),
   });
+  console.log("before useEffect");
 
+  //for get a blog
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     //console.log(token, "token");
-    console.log("EditBlog");
-    fetch("http://localhost:4000/blogs/blog?id=" + id, {
+    console.log("In useEffect");
+    fetch("http://localhost:4000/blogs/edit?id=" + id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -49,22 +54,45 @@ const EditBlog = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data from editBlog", data);
+        console.log(data);
+        if (data[0].title) setTitle(data[0].title);
+        if (data[0].content) setContent(data[0].content);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, [id]);
 
-  /* 
-  const submitBlogs = (userInputData) => {
+  //update the blog
+  /* const updateBlog = (userInputData) => {
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:4000/blogs/edit?id=" + id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(data[0]),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setResponseData(data);
+        setShowAlert(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+ */
+
+  const updateBlog = (userInputData) => {
     const token = localStorage.getItem("authToken");
     //console.log(token);
     const data = userInputData;
     //console.log("title is empty", title === "");
 
-    fetch("http://localhost:4000/blogs", {
-      method: "POST",
+    fetch("http://localhost:4000/blogs/edit?id=" + id, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
@@ -76,9 +104,9 @@ const EditBlog = (props) => {
         console.log("response", response);
         console.log("response", response.ok);
         if (response.ok) {
-          alert("blog added successfully");
+          alert("blog Updated successfully");
         } else {
-          alert("blog is not added");
+          alert("blog is not Updated");
         }
         //history.push("/blogs");
         history.go(-1);
@@ -90,12 +118,12 @@ const EditBlog = (props) => {
         console.error("Error:", error);
       });
     // e.preventDefault();
-  }; */
+  };
 
-  /* const resetField = () => {
+  const resetField = () => {
     setTitle("");
     setContent("");
-  }; */
+  };
 
   return (
     <div>
@@ -110,13 +138,14 @@ const EditBlog = (props) => {
             <CFormGroup>
               <CLabel htmlFor="title">Title</CLabel>
               <CInput
-                type="text"
-                id="title"
                 name="title"
+                id="title"
+                type="text"
                 placeholder="Enter title.."
-                value={formik.values.title}
+                defaultValue={title}
+                //value={formik.values.title}
                 onChange={formik.handleChange}
-              />
+              ></CInput>
               {/* error message */}
               {formik.errors.title ? (
                 <CFormText className="help-block">
@@ -131,7 +160,8 @@ const EditBlog = (props) => {
                 id="content"
                 rows="9"
                 placeholder="Content..."
-                value={formik.values.content}
+                defaultValue={content}
+                //value={formik.values.content}
                 onChange={formik.handleChange}
               />
               {/* error message */}
@@ -157,9 +187,13 @@ const EditBlog = (props) => {
               size="sm"
               color="danger"
               value="Reset"
-              onClick={formik.handleReset}
+              onClick={() => resetField()}
             >
               <CIcon name="cil-ban" /> Reset
+            </CButton>{" "}
+            <CButton type="cancel" size="sm" color="secondary" value="cancel">
+              <CIcon name="cil-x-circle" />{" "}
+              <Link /* style={{a:hover:none}} */ to={".."}>Cancel</Link>
             </CButton>
           </CForm>
         </CCol>
