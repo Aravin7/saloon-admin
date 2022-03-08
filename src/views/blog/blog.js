@@ -1,3 +1,4 @@
+import { cibWindows } from "@coreui/icons";
 import {
   CBadge,
   CButton,
@@ -5,13 +6,38 @@ import {
   CCollapse,
   CDataTable,
 } from "@coreui/react";
-import React, { useState } from "react";
+import { values } from "lodash";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const Blog = () => {
   const history = useHistory();
   const [details, setDetails] = useState([]);
+  const [usersData, setUserData] = useState([]);
+
   // const [items, setItems] = useState(usersData)
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    console.log(token, "token");
+    fetch("http://localhost:4000/blogs/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const arr = values(data);
+        setUserData(arr);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
   const toggleDetails = (index) => {
     const position = details.indexOf(index);
@@ -51,6 +77,28 @@ const Blog = () => {
     }
   };
 
+  const deleteBlog = (id) => {
+    fetch("http://localhost:4000/blogs/" + id, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Network API is not working properly");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        Window.refresh();
+        /* const arr = values(data);
+        setUserData(arr); */
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   /*  const edit = (arrivedId) => {
     alert(arrivedId);
   }; */
@@ -60,7 +108,7 @@ const Blog = () => {
       <h1>Blog lists</h1>
       <button onClick={() => history.push("/blogs/add")}>Add</button>
       <CDataTable
-        items={blogData}
+        items={usersData}
         fields={fields}
         /* columnFilter
         tableFilter
@@ -102,11 +150,18 @@ const Blog = () => {
                   <CButton
                     size="sm"
                     color="info"
-                    onClick={() => history.push(`/blogs/edit/${item.id + 1}`)}
+                    onClick={() => history.push(`/blogs/edit/${item.id}`)}
                   >
                     Edit Blog
                   </CButton>
-                  <CButton size="sm" color="danger" className="ml-1">
+                  <CButton
+                    size="sm"
+                    color="danger"
+                    className="ml-1"
+                    onClick={() => {
+                      deleteBlog(item.id);
+                    }}
+                  >
                     Delete
                   </CButton>
                 </CCardBody>
@@ -120,226 +175,3 @@ const Blog = () => {
 };
 
 export default Blog;
-
-const blogData = [
-  {
-    id: 0,
-    title: "test title 00",
-    content:
-      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
-  },
-  {
-    id: 1,
-    title: "test title 01",
-    content:
-      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
-  },
-  {
-    id: 2,
-    title: "test title 02",
-    content:
-      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
-  },
-  {
-    id: 3,
-    title: "test title 03",
-    content:
-      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
-  },
-  {
-    id: 4,
-    title: "test title 04",
-    content:
-      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
-  },
-  {
-    id: 5,
-    title: "test title 05",
-    content:
-      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
-  },
-  {
-    id: 6,
-    title: "test title 06",
-    content:
-      "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
-  },
-];
-
-const usersData = [
-  {
-    id: 0,
-    name: "John Doe",
-    registered: "2018/01/01",
-    role: "Guest",
-    status: "Pending",
-  },
-  {
-    id: 1,
-    name: "Samppa Nori",
-    registered: "2018/01/01",
-    role: "Member",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Estavan Lykos",
-    registered: "2018/02/01",
-    role: "Staff",
-    status: "Banned",
-  },
-  {
-    id: 3,
-    name: "Chetan Mohamed",
-    registered: "2018/02/01",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 4,
-    name: "Derick Maximinus",
-    registered: "2018/03/01",
-    role: "Member",
-    status: "Pending",
-  },
-  {
-    id: 5,
-    name: "Friderik Dávid",
-    registered: "2018/01/21",
-    role: "Staff",
-    status: "Active",
-  },
-  {
-    id: 6,
-    name: "Yiorgos Avraamu",
-    registered: "2018/01/01",
-    role: "Member",
-    status: "Active",
-  },
-  {
-    id: 7,
-    name: "Avram Tarasios",
-    registered: "2018/02/01",
-    role: "Staff",
-    status: "Banned",
-  },
-  {
-    id: 8,
-    name: "Quintin Ed",
-    registered: "2018/02/01",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 9,
-    name: "Enéas Kwadwo",
-    registered: "2018/03/01",
-    role: "Member",
-    status: "Pending",
-  },
-  {
-    id: 10,
-    name: "Agapetus Tadeáš",
-    registered: "2018/01/21",
-    role: "Staff",
-    status: "Active",
-  },
-  {
-    id: 11,
-    name: "Carwyn Fachtna",
-    registered: "2018/01/01",
-    role: "Member",
-    status: "Active",
-  },
-  {
-    id: 12,
-    name: "Nehemiah Tatius",
-    registered: "2018/02/01",
-    role: "Staff",
-    status: "Banned",
-  },
-  {
-    id: 13,
-    name: "Ebbe Gemariah",
-    registered: "2018/02/01",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 14,
-    name: "Eustorgios Amulius",
-    registered: "2018/03/01",
-    role: "Member",
-    status: "Pending",
-  },
-  {
-    id: 15,
-    name: "Leopold Gáspár",
-    registered: "2018/01/21",
-    role: "Staff",
-    status: "Active",
-  },
-  {
-    id: 16,
-    name: "Pompeius René",
-    registered: "2018/01/01",
-    role: "Member",
-    status: "Active",
-  },
-  {
-    id: 17,
-    name: "Paĉjo Jadon",
-    registered: "2018/02/01",
-    role: "Staff",
-    status: "Banned",
-  },
-  {
-    id: 18,
-    name: "Micheal Mercurius",
-    registered: "2018/02/01",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    id: 19,
-    name: "Ganesha Dubhghall",
-    registered: "2018/03/01",
-    role: "Member",
-    status: "Pending",
-  },
-  {
-    id: 20,
-    name: "Hiroto Šimun",
-    registered: "2018/01/21",
-    role: "Staff",
-    status: "Active",
-  },
-  {
-    id: 21,
-    name: "Vishnu Serghei",
-    registered: "2018/01/01",
-    role: "Member",
-    status: "Active",
-  },
-  {
-    id: 22,
-    name: "Zbyněk Phoibos",
-    registered: "2018/02/01",
-    role: "Staff",
-    status: "Banned",
-  },
-  {
-    id: 23,
-    name: "Aulus Agmundr",
-    registered: "2018/01/01",
-    role: "Member",
-    status: "Pending",
-  },
-  {
-    id: 42,
-    name: "Ford Prefect",
-    registered: "2001/05/25",
-    role: "Alien",
-    status: "Don't panic!",
-  },
-];
