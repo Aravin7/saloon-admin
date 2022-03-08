@@ -73,8 +73,8 @@ const Users = () => {
             <CDataTable
               items={usersData}
               fields={[
-                { key: "id", _classes: "font-weight-bold" },
-                "username",
+                { key: "user_id", _classes: "font-weight-bold" },
+                "email",
                 "email",
                 "created_date",
               ]}
@@ -83,7 +83,7 @@ const Users = () => {
               itemsPerPage={5}
               activePage={page}
               clickableRows
-              onRowClick={(item) => history.push(`/users/${item.id}`)}
+              onRowClick={(item) => history.push(`/users/${item.user_id}`)}
               scopedSlots={{
                 status: (item) => (
                   <td>

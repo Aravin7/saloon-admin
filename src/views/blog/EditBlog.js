@@ -10,12 +10,13 @@ import {
   CRow,
   CTextarea,
 } from "@coreui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-const AddBlog = () => {
+const EditBlog = (props) => {
+  const { id } = props.match.params;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const history = useHistory();
@@ -26,8 +27,8 @@ const AddBlog = () => {
       content: "",
     },
     onSubmit: (userInputData) => {
-      submitBlogs(userInputData);
-      //console.log(userInputData);
+      //submitBlogs(userInputData);
+      console.log(userInputData);
     },
     validationSchema: yup.object({
       title: yup.string().required("title is required").strict().trim(),
@@ -35,6 +36,27 @@ const AddBlog = () => {
     }),
   });
 
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    //console.log(token, "token");
+    console.log("EditBlog");
+    fetch("http://localhost:4000/blogs/blog?id=" + id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data from editBlog", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [id]);
+
+  /* 
   const submitBlogs = (userInputData) => {
     const token = localStorage.getItem("authToken");
     //console.log(token);
@@ -68,7 +90,7 @@ const AddBlog = () => {
         console.error("Error:", error);
       });
     // e.preventDefault();
-  };
+  }; */
 
   /* const resetField = () => {
     setTitle("");
@@ -79,7 +101,7 @@ const AddBlog = () => {
     <div>
       <CRow>
         <CCol xs="12" md="8">
-          <h4>Add New Blog</h4>
+          <h4>EDit Blog</h4>
         </CCol>
       </CRow>
       <CRow>
@@ -146,4 +168,4 @@ const AddBlog = () => {
   );
 };
 
-export default AddBlog;
+export default EditBlog;

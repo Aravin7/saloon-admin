@@ -63,8 +63,11 @@ const User = React.lazy(() => import("./views/users/User"));
 //admin components
 const Login = React.lazy(() => import("./views/pages/login/Login"));
 
+const Profile = React.lazy(() => import("./views/profile/Profile"));
+
 const Blog = React.lazy(() => import("./views/blog/Blog"));
 const AddBlog = React.lazy(() => import("./views/blog/AddBlog"));
+const EditBlog = React.lazy(() => import("./views/blog/EditBlog"));
 
 const Store = React.lazy(() => import("./views/store/Store"));
 const AddStoreItem = React.lazy(() => import("./views/store/AddItem"));
@@ -141,8 +144,15 @@ const routes = [
   { path: "/widgets", name: "Widgets", component: Widgets },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
+  { path: "/profile", exact: true, name: "Profile Details", component: Profile },
   { path: "/blogs", exact: true, name: "Blog", component: Blog },
   { path: "/blogs/add", exact: true, name: "Add Blog", component: AddBlog },
+  {
+    path: "/blogs/edit/:id",
+    exact: true,
+    name: "Edit Blog",
+    component: EditBlog,
+  },
   { path: "/store", exact: true, name: "Store", component: Store },
   {
     path: "/store/add",

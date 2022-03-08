@@ -42,7 +42,9 @@ const TheHeader = () => {
     dispatch({ type: "set", sidebarShow: val });
   };
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  console.log(isLoggedIn, "HHHH");
+  const name = localStorage.getItem("name");
+
+  //console.log(isLoggedIn, "HHHH");
   if (isLoggedIn === "null") {
     return <Redirect from="/" to="/login" />;
   }
@@ -79,7 +81,7 @@ const TheHeader = () => {
         {/* <TheHeaderDropdownNotif />
         <TheHeaderDropdownTasks />
         <TheHeaderDropdownMssg /> */}
-        <div>hi</div>
+        <div>{name}</div>
         <TheHeaderDropdown />
       </CHeaderNav>
 

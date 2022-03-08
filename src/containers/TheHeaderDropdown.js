@@ -62,7 +62,11 @@ const TheHeaderDropdown = () => {
         >
           <strong>Settings</strong>
         </CDropdownItem> */}
-        <CDropdownItem>
+        <CDropdownItem
+          onClick={() => {
+            history.push("/profile");
+          }}
+        >
           <CIcon name="cil-user" className="mfe-2" />
           Profile
         </CDropdownItem>

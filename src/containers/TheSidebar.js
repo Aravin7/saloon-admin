@@ -21,7 +21,7 @@ const TheSidebar = () => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.sidebarShow);
   const role = localStorage.getItem("role");
-  console.log("role", role);
+  //console.log("role", role);
 
   if (role === "admin") {
     return (

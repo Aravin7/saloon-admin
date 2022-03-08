@@ -8,7 +8,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    console.log(token, "token");
+    //console.log(token, "token");
     fetch("http://localhost:4000/users/", {
       method: "GET",
       headers: {
@@ -18,7 +18,8 @@ const Dashboard = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
+        /*  console.log("Success:", data);
+        console.log(data[0]); */
         setAlluserData(data);
       })
       .catch((error) => {
@@ -28,7 +29,7 @@ const Dashboard = () => {
 
   const getItems = () => {
     const token = localStorage.getItem("authToken");
-    console.log(token, "token");
+    //console.log(token, "token");
     fetch("http://localhost:4000/items/", {
       method: "GET",
       headers: {
@@ -38,7 +39,7 @@ const Dashboard = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success Items:", data.response);
+        //console.log("Success Items:", data.response);
         setItems(data.response);
       })
       .catch((error) => {

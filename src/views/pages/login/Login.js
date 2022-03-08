@@ -31,12 +31,12 @@ const Login = () => {
 
   const authenticateUser = () => {
     const data = { email: email, password: password };
-    console.log("typeof(data)", typeof data);
-    console.log("typeof(email)", email);
+    /* console.log("typeof(data)", typeof data);
+    console.log("typeof(email)", email); */
 
     /*  if (email === "" || password === "" || (email === "" && password === "")) {
       setMessage(
-        "You have forgotton to enter the credentials,Please fill it and try again !"
+        "You have forgot to enter the credentials,Please fill it and try again !"
       );
     } */
 
@@ -49,11 +49,11 @@ const Login = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data.token);
+        //console.log("Success:", data.token);
         if (isObject(data)) {
           let role = String(data.role);
-          console.log("role", role);
-          console.log("data", data);
+          //console.log("role", role);
+          //console.log("data", data);
 
           //Set localStorage variables
           localStorage.setItem("isLoggedIn", true);
@@ -61,7 +61,7 @@ const Login = () => {
           localStorage.setItem("role", data.role);
           dispatch({ type: "auth", authData: data });
 
-          //Redirect to dashborad
+          //Redirect to dashboard
           if (role === "admin" || role === "emp") {
             if (role === "admin") {
               localStorage.setItem("name", data.admin_name);
@@ -86,7 +86,7 @@ const Login = () => {
       });
     //  }  else {
     //   setMessage(
-    //     "You have forgotton to enter the credentials,Please fill it and try again !"
+    //     "You have forgot to enter the credentials,Please fill it and try again !"
     //   );
   };
 
@@ -119,6 +119,9 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         autoComplete="current-email"
                       />
+                      {/*   <CFormText className="help-block">
+                        Please enter your email
+                      </CFormText> */}
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
@@ -132,6 +135,9 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         autoComplete="current-password"
                       />
+                      {/*  <CFormText className="help-block">
+                        Please enter your password
+                      </CFormText> */}
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
