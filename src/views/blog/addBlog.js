@@ -26,8 +26,8 @@ const AddBlog = () => {
       content: "",
     },
     onSubmit: (userInputData) => {
-      //submitBlogs(userInputData);
-      console.log(userInputData);
+      submitBlogs(userInputData);
+      //console.log(userInputData);
     },
     validationSchema: yup.object({
       title: yup.string().required("title is required").strict().trim(),
@@ -35,7 +35,6 @@ const AddBlog = () => {
     }),
   });
 
-  /* 
   const submitBlogs = (userInputData) => {
     const token = localStorage.getItem("authToken");
     //console.log(token);
@@ -69,7 +68,7 @@ const AddBlog = () => {
         console.error("Error:", error);
       });
     // e.preventDefault();
-  }; */
+  };
 
   /* const resetField = () => {
     setTitle("");
