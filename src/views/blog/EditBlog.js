@@ -11,7 +11,7 @@ import {
   CTextarea,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -27,8 +27,8 @@ const EditBlog = (props) => {
       content: "",
     },
     onSubmit: (userInputData) => {
-      //submitBlogs(userInputData);
-      console.log(userInputData);
+      submitBlogs(userInputData);
+      //console.log(userInputData);
     },
     validationSchema: yup.object({
       title: yup.string().required("title is required").strict().trim(),
@@ -40,7 +40,7 @@ const EditBlog = (props) => {
     const token = localStorage.getItem("authToken");
     //console.log(token, "token");
     console.log("EditBlog");
-    fetch("http://localhost:4000/blogs/blog?id=" + id, {
+    fetch("http://localhost:4000/blogs/edit?id=" + id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -49,14 +49,14 @@ const EditBlog = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data from editBlog", data);
+        if (data[0].title) setTitle(data[0].title);
+        if (data[0].content) setContent(data[0].content);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, [id]);
 
-  /* 
   const submitBlogs = (userInputData) => {
     const token = localStorage.getItem("authToken");
     //console.log(token);
@@ -90,12 +90,12 @@ const EditBlog = (props) => {
         console.error("Error:", error);
       });
     // e.preventDefault();
-  }; */
+  };
 
-  /* const resetField = () => {
+  const resetField = () => {
     setTitle("");
     setContent("");
-  }; */
+  };
 
   return (
     <div>
@@ -114,7 +114,8 @@ const EditBlog = (props) => {
                 id="title"
                 name="title"
                 placeholder="Enter title.."
-                value={formik.values.title}
+                defaultValue={title}
+                //value={formik.values.title}
                 onChange={formik.handleChange}
               />
               {/* error message */}
@@ -131,7 +132,8 @@ const EditBlog = (props) => {
                 id="content"
                 rows="9"
                 placeholder="Content..."
-                value={formik.values.content}
+                defaultValue={content}
+                //value={formik.values.content}
                 onChange={formik.handleChange}
               />
               {/* error message */}
@@ -157,9 +159,13 @@ const EditBlog = (props) => {
               size="sm"
               color="danger"
               value="Reset"
-              onClick={formik.handleReset}
+              onClick={() => resetField()}
             >
               <CIcon name="cil-ban" /> Reset
+            </CButton>{" "}
+            <CButton type="cancel" size="sm" color="secondary" value="cancel">
+              <CIcon name="cil-x-circle" />{" "}
+              <Link /* style={{a:hover:none}} */ to={".."}>Cancel</Link>
             </CButton>
           </CForm>
         </CCol>
