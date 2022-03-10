@@ -1,4 +1,3 @@
-import { cibWindows } from "@coreui/icons";
 import {
   CBadge,
   CButton,
@@ -14,10 +13,12 @@ const Blog = () => {
   const history = useHistory();
   const [details, setDetails] = useState([]);
   const [usersData, setUserData] = useState([]);
+  const [didUpdate, setDidUpdate] = useState(true);
 
   // const [items, setItems] = useState(usersData)
 
-  useEffect(() => {
+  //update list
+  const updateList = () => {
     const token = localStorage.getItem("authToken");
     console.log(token, "token");
     fetch("http://localhost:4000/blogs/", {
@@ -37,7 +38,36 @@ const Blog = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  };
+
+  //Re render the component
+  useEffect(() => {
+    updateList();
+  }, [didUpdate]);
+
+  //Delete blog
+  const deleteBlog = (id) => {
+    console.log(id);
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:4000/blogs?id=" + id, {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        alert(data.msg);
+        setDidUpdate(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   const toggleDetails = (index) => {
     const position = details.indexOf(index);
@@ -77,27 +107,9 @@ const Blog = () => {
     }
   };
 
-  const deleteBlog = (id) => {
-    fetch("http://localhost:4000/blogs/" + id, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Network API is not working properly");
-        }
-      })
-      .then((data) => {
-        console.log(data);
-        Window.refresh();
-        /* const arr = values(data);
-        setUserData(arr); */
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
+  /*     useEffect(() => {
+    deleteBlog();
+  }, [deleteBlog]); */
 
   /*  const edit = (arrivedId) => {
     alert(arrivedId);
