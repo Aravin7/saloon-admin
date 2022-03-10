@@ -26,9 +26,10 @@ const EditBlog = (props) => {
       title: "",
       content: "",
     },
+    enableReinitialize: true,
     onSubmit: (userInputData) => {
-      submitBlogs(userInputData);
-      //console.log(userInputData);
+      console.log(userInputData);
+      updateBlog(userInputData);
     },
     validationSchema: yup.object({
       title: yup.string().required("title is required").strict().trim(),
@@ -40,7 +41,7 @@ const EditBlog = (props) => {
     const token = localStorage.getItem("authToken");
     //console.log(token, "token");
     console.log("EditBlog");
-    fetch("http://localhost:4000/blogs/edit?id=" + id, {
+    fetch("http://localhost:4000/blogs/blog?id=" + id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -49,6 +50,7 @@ const EditBlog = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        //console.log("data from editBlog", data);
         if (data[0].title) setTitle(data[0].title);
         if (data[0].content) setContent(data[0].content);
       })
@@ -57,14 +59,15 @@ const EditBlog = (props) => {
       });
   }, [id]);
 
-  const submitBlogs = (userInputData) => {
+  const updateBlog = (userInputData) => {
     const token = localStorage.getItem("authToken");
     //console.log(token);
     const data = userInputData;
+    console.log(token);
     //console.log("title is empty", title === "");
 
-    fetch("http://localhost:4000/blogs", {
-      method: "POST",
+    fetch("http://localhost:4000/blogs/edit?id=" + id, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
@@ -76,9 +79,9 @@ const EditBlog = (props) => {
         console.log("response", response);
         console.log("response", response.ok);
         if (response.ok) {
-          alert("blog added successfully");
+          alert("blog updated successfully");
         } else {
-          alert("blog is not added");
+          alert("blog is not updated");
         }
         //history.push("/blogs");
         history.go(-1);
@@ -92,10 +95,10 @@ const EditBlog = (props) => {
     // e.preventDefault();
   };
 
-  const resetField = () => {
+  /* const resetField = () => {
     setTitle("");
     setContent("");
-  };
+  }; */
 
   return (
     <div>
@@ -114,8 +117,8 @@ const EditBlog = (props) => {
                 id="title"
                 name="title"
                 placeholder="Enter title.."
-                defaultValue={title}
                 //value={formik.values.title}
+                defaultValue={title}
                 onChange={formik.handleChange}
               />
               {/* error message */}
@@ -159,7 +162,7 @@ const EditBlog = (props) => {
               size="sm"
               color="danger"
               value="Reset"
-              onClick={() => resetField()}
+              onClick={formik.handleReset}
             >
               <CIcon name="cil-ban" /> Reset
             </CButton>{" "}
