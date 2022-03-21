@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import CancelBtn from "src/compoents/buttons/CancelBtn";
 
 const EditBlog = (props) => {
   const { id } = props.match.params;
@@ -155,7 +156,7 @@ const EditBlog = (props) => {
               }} */
               onClick={formik.handleSubmit}
             >
-              <CIcon name="cil-scrubber" /> Submit
+              <CIcon name="cil-scrubber" /> Update
             </CButton>{" "}
             <CButton
               type="reset"
@@ -166,10 +167,7 @@ const EditBlog = (props) => {
             >
               <CIcon name="cil-ban" /> Reset
             </CButton>{" "}
-            <CButton type="cancel" size="sm" color="secondary" value="cancel">
-              <CIcon name="cil-x-circle" />{" "}
-              <Link /* style={{a:hover:none}} */ to={".."}>Cancel</Link>
-            </CButton>
+            <CancelBtn to={".."} />
           </CForm>
         </CCol>
       </CRow>
