@@ -65,8 +65,8 @@ const Login = React.lazy(() => import("./views/pages/login/Login"));
 
 const Profile = React.lazy(() => import("./views/profile/Profile"));
 
-const Blog = React.lazy(() => import("./views/blog/Blog"));
-const AddBlog = React.lazy(() => import("./views/blog/AddBlog"));
+const Blog = React.lazy(() => import("./views/blog/blog"));
+const AddBlog = React.lazy(() => import("./views/blog/addBlog"));
 const EditBlog = React.lazy(() => import("./views/blog/EditBlog"));
 
 const Store = React.lazy(() => import("./views/store/Store"));
@@ -79,7 +79,7 @@ const CustomerDetails = React.lazy(() => import("./views/customer/Customer"));
 const AddCustomer = React.lazy(() => import("./views/customer/AddCustomer"));
 
 const EmployeeDetails = React.lazy(() => import("./views/employee/Employee"));
-const AddEmployee = React.lazy(() => import("./views/employee/AddEmployee"));
+const AddEmployee = React.lazy(() => import("./views/employee/addEmployee"));
 
 const Reports = React.lazy(() => import("./views/reports/Reports"));
 const Bookings = React.lazy(() => import("./views/bookings/Bookings"));
@@ -144,7 +144,12 @@ const routes = [
   { path: "/widgets", name: "Widgets", component: Widgets },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
-  { path: "/profile", exact: true, name: "Profile Details", component: Profile },
+  {
+    path: "/profile",
+    exact: true,
+    name: "Profile Details",
+    component: Profile,
+  },
   { path: "/blogs", exact: true, name: "Blog", component: Blog },
   { path: "/blogs/add", exact: true, name: "Add Blog", component: AddBlog },
   {
