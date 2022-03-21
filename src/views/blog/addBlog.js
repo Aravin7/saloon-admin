@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import CancelBtn from "src/compoents/buttons/CancelBtn";
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
@@ -138,7 +139,8 @@ const AddBlog = () => {
               onClick={formik.handleReset}
             >
               <CIcon name="cil-ban" /> Reset
-            </CButton>
+            </CButton>{" "}
+            <CancelBtn to={"."} />
           </CForm>
         </CCol>
       </CRow>
