@@ -33,6 +33,7 @@ const Blog = () => {
       })
       .then((data) => {
         const arr = values(data);
+        //console.log(arr);
         setUserData(arr);
       })
       .catch((error) => {
@@ -80,9 +81,11 @@ const Blog = () => {
     setDetails(newDetails);
   };
 
+  //front end table fields names are same as database table columns name,Otherwise its shows undefined
   const fields = [
     { key: "title", _style: { width: "18%" } },
     { key: "content", _style: { width: "40%" } },
+    { key: "created_date", _style: { width: "15%" } },
     {
       key: "show_details",
       label: "",
@@ -122,8 +125,8 @@ const Blog = () => {
       <CDataTable
         items={usersData}
         fields={fields}
-        /* columnFilter
-        tableFilter
+        columnFilter
+        /* tableFilter
         footer */
         itemsPerPageSelect
         itemsPerPage={5}
