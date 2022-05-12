@@ -42,7 +42,9 @@ const TheHeader = () => {
     dispatch({ type: "set", sidebarShow: val });
   };
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const name = localStorage.getItem("name");
+  const f_name = localStorage.getItem("f_name");
+  const l_name = localStorage.getItem("l_name");
+  const name = f_name + " " + l_name;
 
   //console.log(isLoggedIn, "HHHH");
   if (isLoggedIn === "null") {

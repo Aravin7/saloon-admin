@@ -14,6 +14,9 @@ import { useHistory } from "react-router-dom";
 const TheHeaderDropdown = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const f_name = localStorage.getItem("f_name");
+  const l_name = localStorage.getItem("l_name");
+  const fullName = f_name + l_name;
   return (
     <CDropdown inNav className="c-header-nav-items mx-2" direction="down">
       <CDropdownToggle className="c-header-nav-link" caret={false}>
