@@ -121,7 +121,7 @@ const AddBlog = () => {
               ) : null}
             </CFormGroup>
             <CButton
-              type="button"
+              type="submit"
               size="sm"
               color="primary"
               /*  onClick={(e) => {
