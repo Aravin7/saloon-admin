@@ -31,15 +31,7 @@ const Login = () => {
 
   const authenticateUser = () => {
     const data = { email: email, password: password };
-    /* console.log("typeof(data)", typeof data);
-    console.log("typeof(email)", email); */
-
-    /*  if (email === "" || password === "" || (email === "" && password === "")) {
-      setMessage(
-        "You have forgot to enter the credentials,Please fill it and try again !"
-      );
-    } */
-
+   
     fetch("http://localhost:4000/users/authenticate", {
       method: "POST",
       headers: {
@@ -50,15 +42,19 @@ const Login = () => {
       .then((response) => response.json())
       .then((data) => {
         //console.log("Success:", data.token);
+        console.log("data", data);
         if (isObject(data)) {
           let role = String(data.role);
           //console.log("role", role);
-          //console.log("data", data);
+          console.log("data", data);
 
           //Set localStorage variables
           localStorage.setItem("isLoggedIn", true);
           localStorage.setItem("authToken", data.token);
           localStorage.setItem("role", data.role);
+          localStorage.setItem("email", data.email);
+          localStorage.setItem("f_name", data.f_name);
+          localStorage.setItem("l_name", data.l_name);
           dispatch({ type: "auth", authData: data });
 
           //Redirect to dashboard
@@ -84,11 +80,7 @@ const Login = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-    //  }  else {
-    //   setMessage(
-    //     "You have forgot to enter the credentials,Please fill it and try again !"
-    //   );
-  };
+      };
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
