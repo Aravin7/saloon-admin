@@ -70,10 +70,12 @@ const AddBlog = React.lazy(() => import("./views/blog/addBlog"));
 const EditBlog = React.lazy(() => import("./views/blog/EditBlog"));
 
 const Store = React.lazy(() => import("./views/store/Store"));
-const AddStoreItem = React.lazy(() => import("./views/store/AddItem"));
+const AddStoreItem = React.lazy(() => import("./views/store/AddStoreItem"));
+const EditStoreItem = React.lazy(() => import("./views/store/EditStoreItem"));
 
 const Inventory = React.lazy(() => import("./views/inventory/Inventory"));
-const AddInventoryItem = React.lazy(() => import("./views/inventory/AddItem"));
+const AddInventoryItem = React.lazy(() => import("./views/inventory/AddInventoryItem"));
+const EditInventoryItem = React.lazy(() => import("./views/inventory/EditInventoryItem"));
 
 const CustomerDetails = React.lazy(() => import("./views/customer/Customer"));
 const AddCustomer = React.lazy(() => import("./views/customer/AddCustomer"));
@@ -165,12 +167,24 @@ const routes = [
     name: "Add Item",
     component: AddStoreItem,
   },
+  {
+    path: "/store/EditStoreItem",
+    exact: true,
+    name: "Edit Store Item",
+    component: EditStoreItem,
+  },
   { path: "/inventory", exact: true, name: "Inventory", component: Inventory },
   {
     path: "/inventory/add",
     exact: true,
     name: "Add Item",
     component: AddInventoryItem,
+  },
+  {
+    path: "/inventory/edit/:id",
+    exact: true,
+    name: "Edit inventory",
+    component: EditInventoryItem,
   },
   {
     path: "/customer",
