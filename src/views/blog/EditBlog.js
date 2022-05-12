@@ -24,8 +24,8 @@ const EditBlog = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      title: "",
-      content: "",
+      title: title,
+      content:content,
     },
     enableReinitialize: true,
     onSubmit: (userInputData) => {
@@ -96,10 +96,10 @@ const EditBlog = (props) => {
     // e.preventDefault();
   };
 
-  /* const resetField = () => {
+  const resetField = () => {
     setTitle("");
     setContent("");
-  }; */
+  };
 
   return (
     <div>
@@ -163,7 +163,7 @@ const EditBlog = (props) => {
               size="sm"
               color="danger"
               value="Reset"
-              onClick={formik.handleReset}
+              onClick={() => resetField()}
             >
               <CIcon name="cil-ban" /> Reset
             </CButton>{" "}
